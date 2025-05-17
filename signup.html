@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>signup</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!--sign in css-->
+    <style>
+    
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+           background-image:linear-gradient(rgba(0,0,0,0.4)) ,url('./img/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        form {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .container {
+            width: 400px;
+            background: rgb(0, 255, 33);
+            padding: 40px;
+            display: flex;
+            flex-flow: column wrap;
+            align-content: center;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+
+        }
+
+        .logo {
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: rgb(29, 72, 227);
+            text-transform: uppercase;
+
+        }
+
+        .container .input {
+            width: 100%;
+        }
+
+        .container .input div {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .container .input div input {
+            width: 100%;
+            padding: 15px;
+            outline: none;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .select {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 4px;
+            margin: 0 0 20px 0;
+            color: white;
+        }
+
+        .select #sel {
+            border: none;
+            border-radius: 3px;
+            outline: none;
+            text-transform: capitalize;
+        }
+
+        .select label {
+            text-transform: capitalize;
+            font-size: medium;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .button input {
+            width: 100%;
+            padding: 10px;
+            outline: none;
+            border: none;
+            border-radius: 45px;
+            background: rgb(29, 72, 227);
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: black;
+            cursor: pointer;
+            text-transform: capitalize;
+            border: solid 1px black;
+        }
+
+        .containerrrr {
+            background-image: url(images/purple.avif);
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+
+        }
+    </style>
+</head>
+<div class="containerrrr">
+
+    <body>
+        <div class="containerrrr">
+            <form id="signupForm">
+                <div class="container">
+                    <div class="logo">
+                        signup
+                    </div>
+                    <div class="input">
+                        <div class="first-name">
+                            <input id="first" type="text" placeholder="first_name" required />
+                        </div>
+                        <div class="second-name">
+                            <input id="second" type="text" placeholder="second_name" required />
+                        </div>
+                        <div class="email">
+                            <input type="email" id="email" placeholder="email" required />
+                        </div>
+                        <div class="pass">
+                            <input id="password" type="password" placeholder="password" required />
+                        </div>
+                        <div class="pass">
+                            <input id="confirm" type="password" placeholder="confirm_password" required />
+                        </div>
+                        <div class="button">
+                            <input type="submit" value="Sign Up" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById("signupForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value;
+                const confirm = document.getElementById("confirm").value;
+                const first = document.getElementById("first").value.trim();
+                const second = document.getElementById("second").value.trim();
+                const username = `${first} ${second}`.trim();
+
+                if (password !== confirm) {
+                    alert("Passwords do not match.");
+                    return;
+                }
+
+                fetch("http://localhost:8080/api/auth/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password, username })
+                })
+                    .then(res => res.json())
+                    .then(user => {
+                        console.log("Signed up successfully as: " + user.username);
+                        window.location.href = "/template/sign in.html";
+
+                    })
+                    .catch(err => {
+                        alert.log("Error: " + err);
+                    });
+            });
+        </script>
+    </body>
+
+</html>

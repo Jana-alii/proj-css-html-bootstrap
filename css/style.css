@@ -474,3 +474,14 @@ z-index: 400;
         .port-details{
           height:90px;
         }
+        .style{
+          color: #007bff;
+          font-weight: 400;
+            font-family: "Ancizar Sans", sans-serif;
+            font-size: 16px;
+
+        }
+        .jj{
+          text-shadow: 1px 2px cornflowerblue;
+
+        }
